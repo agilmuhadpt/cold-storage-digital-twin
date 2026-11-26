@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <title>CryoTwin Cloud — 3D Cold Storage IoT Digital Twin</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <!-- Top Cloud Telemetry Bar -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot" id="cloud-status-dot"></span>
+        <div>
+          <h1 class="brand-title">CryoTwin Cloud</h1>
+          <p class="brand-sub">Facility WH-04 • Cold Storage IoT Digital Twin</p>
+        </div>
+      </div>
+
+      <div class="kpi-strip" id="kpi-strip">
+        <div class="kpi-card">
+          <span class="kpi-label">Cloud MQTT</span>
+          <span class="kpi-value status-ok" id="kpi-cloud">SYNCED • 14ms</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Deep Freeze</span>
+          <span class="kpi-value" id="kpi-df-temp">-22.4 °C</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Chilled Zone</span>
+          <span class="kpi-value" id="kpi-ch-temp">+2.1 °C</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Blast Freezer</span>
+          <span class="kpi-value" id="kpi-bf-temp">-35.0 °C</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Plant Load</span>
+          <span class="kpi-value" id="kpi-power">142.8 kW</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Active Alerts</span>
+          <span class="kpi-value" id="kpi-alerts">0</span>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="btn btn-ghost" id="btn-scenario-normal" title="Restore nominal cold chain operation">Nominal</button>
+        <button class="btn btn-warn" id="btn-scenario-excursion" title="Simulate dock door left open & thermal excursion">Simulate Fault</button>
+      </div>
+    </header>
+
+    <!-- Main 3D Viewport + Side Panels -->
+    <main class="workspace">
+      <!-- Left Panel: Zones, Camera Presets & Layers -->
+      <aside class="panel panel-left">
+        <section class="panel-section">
+          <h2 class="section-title">Camera Views</h2>
+          <div class="pill-grid" id="camera-presets">
+            <button class="pill active" data-cam="overview">Overview</button>
+            <button class="pill" data-cam="deepfreeze">Deep Freeze</button>
+            <button class="pill" data-cam="chilled">Chilled AMRs</button>
+            <button class="pill" data-cam="blast">Blast Freezer</button>
+            <button class="pill" data-cam="docks">Cold Docks</button>
+            <button class="pill" data-cam="plant">IoT &amp; Plant</button>
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <h2 class="section-title">Digital Twin Layers</h2>
+          <div class="toggle-list">
+            <label class="toggle-row">
+              <span>Thermal Heatmap</span>
+              <input type="checkbox" id="layer-thermal" checked />
+            </label>
+            <label class="toggle-row">
+              <span>IoT Cloud Links</span>
+              <input type="checkbox" id="layer-iot" checked />
+            </label>
+            <label class="toggle-row">
+              <span>X-Ray Walls</span>
+              <input type="checkbox" id="layer-xray" />
+            </label>
+            <label class="toggle-row">
+              <span>AMR Pathing</span>
+              <input type="checkbox" id="layer-paths" checked />
+            </label>
+          </div>
+        </section>
+
+        <section class="panel-section grow-scroll">
+          <h2 class="section-title">IoT Hardware Fleet</h2>
+          <div class="device-list" id="device-list"></div>
+        </section>
+      </aside>
+
+      <!-- Center 3D Canvas -->
+      <div class="viewport-wrap" id="viewport-wrap">
+        <canvas id="scene-canvas"></canvas>
+        <div class="viewport-hint">
+          Drag to orbit • Right-drag to pan • Scroll to zoom • Click any 3D device to inspect
+        </div>
+        <div class="alert-banner hidden" id="alert-banner">
+          <span class="alert-icon">⚠</span>
+          <span id="alert-banner-text">Thermal excursion detected</span>
+        </div>
+      </div>
+
+      <!-- Right Panel: Selected Device Inspector + Cloud MQTT Stream -->
+      <aside class="panel panel-right">
+        <section class="panel-section" id="inspector-section">
+          <h2 class="section-title">Device Inspector</h2>
+          <div id="inspector-content" class="inspector-empty">
+            Click any 3D hardware unit or select from the fleet list to view live cloud telemetry and send remote commands.
+          </div>
+        </section>
+
+        <section class="panel-section grow-scroll">
+          <div class="section-header-row">
+            <h2 class="section-title">Cloud MQTT Stream</h2>
+            <span class="live-badge">LIVE</span>
+          </div>
+          <div class="mqtt-log" id="mqtt-log"></div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
