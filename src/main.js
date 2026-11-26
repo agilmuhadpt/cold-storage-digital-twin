@@ -2,7 +2,7 @@ import { TwinSimulation } from './twinState.js';
 import { WarehouseScene } from './warehouseScene.js';
 
 const sim = new TwinSimulation();
-sim.pushLog('cryotwin/wh04/edge/gw-01/status', '{"broker":"AWS IoT Core","twin":"SYNCED"}', 'info');
+sim.pushLog('cryotwin/wh04/edge/gw-01/status', '{"broker":"in-kingdom-iot","twin":"SYNCED"}', 'info');
 
 let selectedId = 'iot-gw-cloud-01';
 

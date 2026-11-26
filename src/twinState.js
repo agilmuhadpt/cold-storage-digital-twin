@@ -14,7 +14,7 @@ export function createInitialDevices() {
       zone: 'Plant / Cloud',
       topic: 'cryotwin/wh04/edge/gw-01/status',
       status: 'ok',
-      metrics: { 'MQTT Broker': 'AWS IoT Core', 'Latency': '14 ms', 'Connected Nodes': '11 / 11', 'Uptime': '99.98%' },
+      metrics: { 'MQTT Broker': 'In-Kingdom IoT broker', 'Latency': '14 ms', 'Connected Nodes': '11 / 11', 'Uptime': '99.98%' },
       commands: ['Ping Cloud', 'Sync Twin State'],
     },
     {
